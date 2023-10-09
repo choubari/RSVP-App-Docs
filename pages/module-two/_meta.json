@@ -1,0 +1,10 @@
+{
+  "client-components": "Client Components",
+  "server-components": "Server Components",
+  "fetch-data": "Fetch Data on the Server",
+  "route-handlers": "Fetch Data on the Client",
+  "loading-ui": "Loading UI",
+  "error-handling": "Error Handling",
+  "streaming": "Data Streaming",
+  "next-steps": "Next Steps"
+}

@@ -1,7 +1,17 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "index": "Hello World!",
+  "introduction": "Introduction",
+  "why-nextjs": "Why Next.js?",
+  "what-we-will-build": "What we will build?",
+  "setup": "Setup",
+  "module-one": "Module 1: Routing",
+  "module-two": "Module 2: Data Fetching",
+  "module-three": "Module 3: Performance",
+  "module-four": "Module 4: SEO",
+  "module-five": "Module 5: Deployment",
+  "components": "Extras: Style your Components!",
+  "features-to-add": "What's Next?",
+  "end": "The End",
   "about": {
     "title": "About",
     "type": "page"
@@ -9,7 +19,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://twitter.com/choubari_",
     "newWindow": true
   }
 }
