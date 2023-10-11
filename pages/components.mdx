@@ -1,37 +1,7 @@
-# Another Page
+## The Beauty of TailwindCSS
 
-```js filename="demo.js" {3} copy
-let a = 3;
+This course could be a great occasion to learn TailwindCSS and style your components.
 
-console.log(a);
-```
+Head up to their [amazing Docs](https://tailwindcss.com/) and learn about their utility classes!
 
-```sh npm2yarn
-npm i next react react-dom nextra nextra-theme-docs
-```
-
-## Component
-
-import { useState } from "react";
-
-{/* Import CSS modules */}
-import styles from '../components/counters.module.css'
-
-export const Counter = () => {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)} className={styles.counter}>
-        Clicked {count} times
-      </button>
-    </div>
-  );
-};
-
-<Counter />
-
-## External Component
-
-import Counters from "../components/counters";
-
-<Counters />
+You can always check my [Github repository](https://github.com/choubari/RSVP-Event-App/) and the [live demo](https://rsvp.choubari.com) of my RSVP application to get inspired!

@@ -1,0 +1,68 @@
+## What is robots.txt?
+
+A robots.txt file tells search engine crawlers which URLs the crawler can access on your site.
+
+## Robots.txt vs Sitemap.xml
+
+The purpose of a Sitemap is to indicate the search engines of all the webpages that it should crawl on your website. Robots. txt: A robots. txt file is created to signify the search engines which pages to crawl and which pages to omit.
+
+## How to add a Robots File
+
+With Next.js, you can add or generate a `robots.txt` file that matches the [Robots Exclusion Standard](https://en.wikipedia.org/wiki/Robots.txt#Standard) in the root of `app` directory to tell search engine crawlers which URLs they can access on your site.
+
+### Static Robots File
+
+Add directly your txt file in the app directory with the links you want search engines to crawl and the ones to ommit.
+
+**Example:**
+
+```txt
+// app/robots.txt
+
+User-Agent: *
+Allow: /
+Disallow: /private/
+
+Sitemap: https://acme.com/sitemap.xml
+```
+
+### Dynamic Robots File
+
+Add a `robots.js` or `robots.ts` file that returns a [Robots object](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots#robots-object).
+
+```js
+import { MetadataRoute } from "next";
+
+const home = process.env.NEXT_PUBLIC_APP_URL;
+
+export default function robots(): MetadataRoute.Robots {
+  // Find all unpublished events.
+  //   const disallowedEvents = [""];
+
+  //   const disallowedPaths = [...disallowedEvents, "/api/contact"];
+  const disallowedPaths = ["/api/events", "/api/categories"];
+
+  return {
+    sitemap: `${home}/sitemap.xml`,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: disallowedPaths,
+    },
+  };
+}
+```
+
+This code defines a function that returns a robots configuration for a Next.js application. It specifies which paths should be disallowed for web crawlers (e.g., search engine bots). Specifically, it disallows bots from accessing /api/events and /api/categories paths. Additionally, it provides a link to the sitemap located at the root of the application domain.
+
+## Exercise
+
+> You can use the same file above to create your `robots.js` file!
+
+---
+
+---
+
+#### Resources:
+
+- https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots

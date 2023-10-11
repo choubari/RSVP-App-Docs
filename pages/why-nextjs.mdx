@@ -1,37 +1,67 @@
-# Another Page
+Next.js is a flexible **React framework** that gives you building blocks to create fast **web applications**.
 
-```js filename="demo.js" {3} copy
-let a = 3;
+But what exactly do we mean by this? Let’s spend some time expanding on what React and Next.js are and how they can help.
 
-console.log(a);
-```
+## Building Blocks of a Web Application
 
-```sh npm2yarn
-npm i next react react-dom nextra nextra-theme-docs
-```
+There are a few things you need to consider when building modern applications. Such as:
 
-## Component
+- **User Interface** - how users will consume and interact with your application.
+- **Routing** - how users navigate between different parts of your application.
+- **Data** Fetching - where your data lives and how to get it.
+- **Rendering** - when and where you render static or dynamic content.
+- **Integrations** - what third-party services you use (CMS, auth, payments, etc) and how you connect to them.
+- **Infrastructure** - where you deploy, store, and run your application code (Serverless, CDN, Edge, etc).
+- **Performance** - how to optimize your application for end-users.
+- **Scalability** - how your application adapts as your team, data, and traffic grow.
+- **Developer Experience** - your team’s experience building and maintaining your application.
+  For each part of your application, you will need to decide whether you will build a solution yourself or use other tools such as libraries and frameworks.
 
-import { useState } from "react";
+## What is React?
 
-{/* Import CSS modules */}
-import styles from '../components/counters.module.css'
+[React](https://react.dev) is a JavaScript **library** for building interactive **user interfaces**.
 
-export const Counter = () => {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <button onClick={() => setCount(count + 1)} className={styles.counter}>
-        Clicked {count} times
-      </button>
-    </div>
-  );
-};
+By user interfaces, we mean the elements that users see and interact with on-screen.
 
-<Counter />
+![User Interface](../images/user-interface.png)
 
-## External Component
+By library, we mean React provides helpful functions to build UI, but leaves it up to the developer where to use those functions in their application.
 
-import Counters from "../components/counters";
+Part of React’s success is that it is relatively unopinionated about the other aspects of building applications. This has resulted in a flourishing ecosystem of third-party tools and solutions.
 
-<Counters />
+It also means, however, that building a complete React application from the ground up requires some effort. Developers need to spend time configuring tools and reinventing solutions for common application requirements.
+
+## What is Next.js?
+
+Next.js is a JavaScript framework that is built on top of React, a popular library for building user interfaces. This means that you can use React to build your app, and Next.js provides additional tools and features to make the process easier.
+
+By framework, we mean Next.js handles the tooling and configuration needed for React, and provides additional structure, features, and optimizations for your application
+
+![Next.js app](../images/next-app.png)
+
+You can use React to build your UI, then incrementally adopt Next.js features to solve common application requirements such as routing, data fetching, integrations - all while improving the developer and end-user experience.
+
+Whether you’re an individual developer or part of a larger team, you can leverage React and Next.js to build fully interactive, highly dynamic, and performant web applications.
+
+One of the main benefits of Next.js is that it enables server-side rendering. This means the server can generate the HTML for a page and send it to the client, rather than the client generating the HTML using JavaScript. This can improve the performance and SEO of your app.
+
+Next.js also includes a number of other features that can be helpful when building and deploying web applications. For example, it has automatic code splitting, meaning that your app will only load the code needed for the current page, rather than loading all of the code at once. This can improve the performance of your app. Next.js also has a built-in development server and a toolchain for deploying your app to production.
+
+## Why Next.js 13?
+
+Next.js 13 represents the first comprehensive attempt to integrate React’s two identities — the UI Library and the Architecture. It is packed with several cool features and remarkable upgrades.
+
+In this course, we will understand in-depth the top Next.js 13 features while building a cool application.
+
+Let's discover what we will build in the next chapter!
+
+---
+
+---
+
+#### Resources
+
+- https://react.dev
+- https://nextjs.org/docs/
+- https://nextjs.org/learn/foundations/how-nextjs-works
+- https://blog.bitsrc.io/why-next-js-13-is-a-game-changer-2167658d9de2

@@ -1,0 +1,105 @@
+## Fetching Data on the Server with `fetch`
+
+Next.js extends the native `fetch` Web API to allow you to configure the caching and revalidating behavior for each `fetch` request on the server. React extends `fetch` to automatically memoize `fetch` requests while rendering a React component tree.
+
+You can use `fetch` with async/await in Server Components, in Route Handlers, and in Server Actions.
+
+> Let's focus now on Server Components, as we will discuss Route Handlers in the next chapter!
+
+> Since Server Actions are in Alpha, we won't talk about it at the moment!
+
+For example:
+
+```jsx
+async function getData() {
+  const res = await fetch("https://api.example.com/...");
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+export default async function Page() {
+  const data = await getData();
+
+  return <main></main>;
+}
+```
+
+Server Components allow you to move data fetching to the server, closer to your data source. This can improve performance by reducing time it takes to fetch data needed for rendering, and the amount of requests the client needs to make.
+
+## Exercise
+
+Let's fetch our categories from our API endpoint and show them in the `/app/categories/page.tsx` file!
+
+Try to do it yourself.
+
+Got a question? Ask First Kawtar Live!
+
+Then check the solution!
+
+<details>
+<summary>Click to show the solution!</summary>
+
+```jsx
+import CategoryCard from "@/components/category-card"; // you have to build it hihi ;)
+import { Category } from "@/types";
+import Link from "next/link";
+
+async function getCategories() {
+  const categories = await fetch(`${process.env.API_ENDPOINT}/categories`);
+  return categories;
+}
+
+async function CategoriesList() {
+  const response = await getCategories();
+  const categories = await response.json();
+
+  if (!categories) {
+    return <div>Failed to load data</div>;
+  }
+  return (
+    <>
+      {categories.map((category: Category) => (
+        <Link href={`/events?category=${category.name}`} key={category.id}>
+          <CategoryCard key={category.id} category={category} />
+        </Link>
+      ))}
+    </>
+  );
+}
+
+export default function Categories() {
+  return (
+    <div className="w-full max-w-screen-lg mx-auto">
+      <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-medium my-3">
+        Categories Page
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
+        <CategoriesList />
+      </div>
+    </div>
+  );
+}
+```
+
+</details>
+
+> Apply the same thing to fetch Events in `/app/events/page.tsx`
+
+> Try to console log your `process.env.API_ENDPOINT`... See why server components are great for fetching data?
+
+Got a question? Ask Kawtar Live!
+
+---
+
+---
+
+#### Resources
+
+- https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-fetch

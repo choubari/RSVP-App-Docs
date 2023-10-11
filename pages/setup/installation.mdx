@@ -1,3 +1,47 @@
 # Project Setup
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+First, let’s make sure that your development environment is ready.
+
+System Requirements:
+
+- Node.js 16.14 or later.
+- macOS, Windows (including WSL), and Linux are supported.
+
+If you don’t have **Node.js** installed, [install it from here](https://nodejs.org/en/).
+You’ll be using your own text editor and terminal app for this tutorial.
+
+> If you are on Windows, we recommend downloading [Git for Windows](https://gitforwindows.org/) and use Git Bash that comes with it, which supports the UNIX-specific commands in this tutorial. Windows Subsystem for Linux (WSL) is another option.
+
+## Create next app
+
+To create a Next.js app, open your terminal, cd into the directory you’d like to create the app in, and run the following command:
+
+```sh
+npx create-next-app@latest
+```
+
+On installation, you'll see the following prompts:
+
+```sh
+1 What is your project named? my-app
+2 Would you like to use TypeScript? No / Yes
+3 Would you like to use ESLint? No / Yes
+4 Would you like to use Tailwind CSS? No / Yes
+5 Would you like to use `src/` directory? No / Yes
+6 Would you like to use App Router? (recommended) No / Yes
+7 Would you like to customize the default import alias (@/*)? No / Yes
+8 What import alias would you like configured? @/*
+```
+
+First choose the project name, for example 'nextjs-demo'. Then choose yes on all steps except 5 _(no need to)_, and 8 _(we can do that later)_. Then hit enter on the last step.
+
+After the prompts, `create-next-app` will create a folder with your project name and install the required dependencies.
+
+Great, now navigate to your project `cd nextjs-demo` and open it on your IDE!
+
+---
+
+#### Resources
+
+- https://nextjs.org/learn/basics/create-nextjs-app/setup
+- https://nextjs.org/docs/getting-started/installation

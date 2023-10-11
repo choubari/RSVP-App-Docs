@@ -1,0 +1,50 @@
+## Client Components
+
+Client Components allows you to write interactive UI that can be rendered on the client at request time. In Next.js, client rendering is opt-in, meaning you have to explicitly decide what components React should render on the client.
+
+This page will go through how Client Components work, how they're rendered, and when you might use them.
+
+## Benefits of Client Rendering
+
+There are a couple of benefits to doing the rendering work on the client, including:
+
+- **Interactivity**: Client Components can use state, effects, and event listeners, meaning they can provide immediate feedback to the user and update the UI.
+- **Browser APIs**: Client Components have access to browser APIs, like geolocation or localStorage, allowing you to build UI for specific use cases.
+
+## Using Client Components in Next.js
+
+To use Client Components, you can add the React `"use client"` directive at the top of a file, above your imports.
+
+`"use client"` is used to declare a boundary between a Server and Client Component modules. This means that by defining a `"use client"` in a file, all other modules imported into it, including child components, are considered part of the client bundle.
+
+```jsx
+// components/counter.tsx
+"use client";
+
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+## Exercise
+
+> Create a Counter component in `/components/counter.tsx` and import it in any page we've created, for example in the about page!
+
+> Since the Counter requires interactivity with useState, it is a Client Component!
+
+---
+
+---
+
+#### Resources
+
+- https://nextjs.org/docs/app/building-your-application/rendering/client-components

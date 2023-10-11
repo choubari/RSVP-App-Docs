@@ -1,0 +1,47 @@
+The special file `loading.js` helps you create meaningful Loading UI with React Suspense. With this convention, you can show an instant loading state from the server while the content of a route segment loads. The new content is automatically swapped in once rendering is complete.
+
+![Next.js app](../../images/loaded-content.png)
+
+## Instant Loading States
+
+An instant loading state is fallback UI that is shown immediately upon navigation. You can pre-render loading indicators such as skeletons and spinners, or a small but meaningful part of future screens such as a cover photo, title, etc. This helps users understand the app is responding and provides a better user experience.
+
+Create a loading state by adding a `loading.js` file inside a folder.
+
+![Next.js app](../../images/loadingjs.png)
+
+```jsx
+// app/dashboard/loading.tsx
+export default function Loading() {
+  // You can add any UI inside Loading, including a Skeleton.
+  return <LoadingSkeleton />;
+}
+```
+
+## Exercise
+
+After you have built and rendered the `/events/1234` route, you will notice a small moment with while screen, wen the data is being loaded...
+
+Let's show a loading indicator during this time!
+
+<details>
+<summary>Click to show the solution!</summary>
+
+```jsx
+// app/events/loading.tsx
+export default function Loading() {
+  return <p>Loading...</p>;
+}
+```
+
+</details>
+
+Got a question? Ask Kawtar Live!
+
+---
+
+---
+
+#### Resources
+
+- https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming

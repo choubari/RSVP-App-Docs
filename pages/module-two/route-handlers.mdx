@@ -1,0 +1,104 @@
+## Fetching Data on the Client
+
+Remember what we say about [Client Components](/module-two/client-components), makes good use for interactive content!
+
+Well, you need sometimes to fetch data on a client component.
+
+There are two main solutions to do that!
+
+Either expose your API_ENDPOINT (and tokens, very bad!!)
+
+Or you can call something called a Route Handler from the client.
+
+## Route Handlers
+
+Route Handlers execute on the server and return the data to the client. This is useful when you don't want to expose sensitive information to the client, such as API tokens.
+
+Route Handlers allow you to create custom request handlers for a given route using the Web Request and Response APIs.
+
+### Convention
+
+Route Handlers are defined in a `route.js|ts` file inside the app directory:
+
+![Next.js](../../images/routehand.png)
+
+> Route Handlers are only available inside the app directory. They are the equivalent of API Routes inside the pages directory meaning you do not need to use API Routes and Route Handlers together.
+
+```js
+// app/api/route.ts
+export async function GET(request: Request) {}
+```
+
+> Route Handlers can be nested inside the app directory, similar to `page.js` and `layout.js`. But there cannot be a `route.js` file at the same route segment level as `page.js`.
+
+### Supported HTTP Methods
+
+The following HTTP methods are supported: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS. If an unsupported method is called, Next.js will return a 405 Method Not Allowed response.
+
+## Exercise
+
+In order to understand well this chapter, let's try the first way described in this page!
+
+> Calling our API in a Client Component in an exposed way!!
+
+First let's make out `/app/events/page.tsx` a client component ("use client").
+
+Then let's fetch data, we can use useEffect() as well. You will see an error on not having acces to `process.env.API_ENDPOINT`, and that's because:
+
+> Non-`NEXT_PUBLIC_` environment variables are only available in the Node.js environment, meaning they aren't accessible to the browser (the client runs in a different environment).
+
+You should preferably create a new env variable called NEXT_PUBLIC_API_ENDPOINT to be able to call it in the client!
+
+Try to console.log() it... the endpoint is exposed!
+
+Before moving on, make sure your `/app/events/page.tsx` renders well the event data, preferably show them in a good design (grid featuring event title and cover, and a link to the single details event page)!
+
+Now let's try to use the second way of fetching data in client components: Route Handlers!
+
+Let's use this method on our event details page `/app/events/[eventId]/page.tsx`
+
+Firstly, you can start by creating a basic UI card that shows Event title, description, price and a button to RSVP showing also current RSVP count.
+
+Then let's make it dynamic using route handlers!
+
+Let's create a route.ts under this directory `/app/api/events/[eventId]/route.ts` .
+
+Our route will have a GET request to our actual API_ENDPOINT (since the route handler is run on server!)
+
+```js
+export async function GET(
+  request: Request,
+  { params }: { params: { eventId: string } }
+) {
+  const response = await fetch(
+    `${process.env.API_ENDPOINT}/events/${params.eventId}` // catching the dynamic param in the /api/[eventId] route
+  );
+  const event = await response.json();
+  return new Response(JSON.stringify(event));
+}
+```
+
+Now, instead of calling `` fetch(`${process.env.API_ENDPOINT}/events/${eventId}`); `` we will call in our `page.tsx` the route handler!
+
+```jsx
+// old
+const res = await fetch(
+  `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/events/${id}`
+); // client component, exposed API
+const event = await res.json();
+
+// new
+const res = await fetch(`/api/events/${id}`); // route handler runs on server
+const event = await res.json();
+```
+
+Got a question? Ask Kawtar Live!
+
+---
+
+---
+
+#### Resources
+
+- https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-client-with-route-handlers
+- https://nextjs.org/docs/app/building-your-application/routing/route-handlers

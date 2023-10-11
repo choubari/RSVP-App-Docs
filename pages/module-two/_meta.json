@@ -1,6 +1,6 @@
 {
-  "client-components": "Client Components",
   "server-components": "Server Components",
+  "client-components": "Client Components",
   "fetch-data": "Fetch Data on the Server",
   "route-handlers": "Fetch Data on the Client",
   "loading-ui": "Loading UI",

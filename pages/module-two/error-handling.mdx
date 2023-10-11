@@ -1,0 +1,126 @@
+## Error Handling
+
+The `error.js` file convention allows you to gracefully handle unexpected runtime errors in nested routes.
+
+- Automatically wrap a route segment and its nested children in a React Error Boundary.
+- Create error UI tailored to specific segments using the file-system hierarchy to adjust granularity.
+- Isolate errors to affected segments while keeping the rest of the application functional.
+- Add functionality to attempt to recover from an error without a full page reload.
+
+Create error UI by adding an `error.js` file inside a route segment and exporting a React component:
+
+![Next.js app](../../images/errorfile.png)
+
+```jsx
+// app/dashboard/error.tsx
+'use client' // Error components must be Client Components
+
+import { useEffect } from 'react'
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string }
+  reset: () => void
+}) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error(error)
+  }, [error])
+
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button
+        onClick={
+          // Attempt to recover by trying to re-render the segment
+          () => reset()
+        }
+      >
+        Try again
+      </button>
+    </div>
+  )
+}
+```
+
+## How `error.js` Works`
+
+![Next.js app](../../images/errorsuspense.png)
+
+- error.js automatically creates a React Error Boundary that wraps a nested child segment or page.js component.
+- The React component exported from the error.js file is used as the fallback component.
+- If an error is thrown within the error boundary, the error is contained, and the fallback component is rendered.
+- When the fallback error component is active, layouts above the error boundary maintain their state and remain interactive, and the error component can display functionality to recover from the error.
+
+## Exercise
+
+> Let's say a user tapped on the url and wrote this url `/events/xoxo`, where xoxo is not a valid eventId...
+
+We need to handle this error and show a beautiful UI to the user.
+
+If you are on dev environment, you will see the default nextjs error popup with the error shown bu the API, but we want to customize that!
+
+> Your exercise is to create an `error.js` file in the `/app/events/[eventId]` directory!
+
+<details>
+<summary>Click to show the solution!</summary>
+
+First let's make sure we are throwing an error, in case of our api is not returning an event of an invalid id.
+
+```jsx
+// app/events/[eventId]/page.tsx
+const res = await fetch(`/api/events/${id}`); // route handler
+const event = await res.json();
+// ...
+// after fetching data
+// throw an error if event is an empty array
+if (Object.keys(event).length === 0) {
+  throw new Error("Event does not exist"); // write here whatever you want
+}
+```
+
+Then let's create our error.jsx file and customize it!
+
+```jsx
+// app/events/[eventId]/error.tsx
+"use client";
+import Link from "next/link";
+
+export default function ErrorPage({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string },
+  reset: () => void,
+}) {
+  return (
+    <div className="flex flex-col justify-center align-middle items-center my-20">
+      <p className="mb-5 text-3xl text-center">
+        {error.message} {/* We are getting the error message we throw */}
+        <br />
+        Better to go back!
+      </p>
+      <Link
+        href="/events"
+        className="flex max-w-fit items-center justify-center rounded-full border-2 border-blue-600 text-white px-5 py-3 shadow-lg hover:bg-transparent hover:text-blue-600 bg-blue-600"
+      >
+        See All Events
+      </Link>
+    </div>
+  );
+}
+```
+
+</details>
+
+Got a question? Ask Kawtar Live!
+
+---
+
+---
+
+#### Resources
+
+- https://nextjs.org/docs/app/building-your-application/routing/error-handling

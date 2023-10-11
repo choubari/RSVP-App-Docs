@@ -1,0 +1,139 @@
+`next/font` will automatically optimize your fonts (including custom fonts) and remove external network requests for improved privacy and performance.
+
+`next/font` includes built-in automatic self-hosting for any font file. This means you can optimally load web fonts with zero layout shift, thanks to the underlying CSS `size-adjust` property used.
+
+This new font system also allows you to conveniently use all Google Fonts with performance and privacy in mind. CSS and font files are downloaded at build time and self-hosted with the rest of your static assets. **No requests are sent to Google by the browser**.
+
+## Google Fonts
+
+Automatically self-host any Google Font. Fonts are included in the deployment and served from the same domain as your deployment. No requests are sent to Google by the browser.
+
+Get started by importing the font you would like to use from `next/font/google` as a function. We recommend using variable fonts for the best performance and flexibility.
+
+```jsx
+// app/layout.tsx
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <html lang="en" className={roboto.className}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+## Local Fonts
+
+Import `next/font/local` and specify the `src` of your local font file.
+
+We recommend using [variable fonts](https://fonts.google.com/variablefonts) for the best performance and flexibility.
+
+```jsx
+// app/layout.tsx
+import localFont from "next/font/local";
+
+// Font files can be colocated inside of `app`
+const myFont = localFont({
+  src: "./my-font.woff2",
+  display: "swap",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <html lang="en" className={myFont.className}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+## With TailwindCSS
+
+`next/font` can be used with Tailwind CSS through a CSS variable.
+
+In the example below, we use the font `Inter` from `next/font/google` (you can use any font from Google or Local Fonts). Load your font with the `variable` option to define your CSS variable name and assign it to `inter`. Then, use `inter.variable` to add the CSS variable to your HTML document.
+
+```jsx
+// app/layout.tsx
+import { Inter, Roboto_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const roboto_mono = Roboto_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto-mono",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+Finally, add the CSS variable to your Tailwind CSS config:
+
+```js
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)"],
+        mono: ["var(--font-roboto-mono)"],
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+## Exercise
+
+Apply what you learned before to :
+
+- Change Logo's Font and the Home page Headline text
+- Change the whole text that is nested to the (legal) route group; you may want to use it inside `/app/(legal)/layout.tsx`
+- Change fonts as you want, get creative!
+
+> Got a question? Ask Kawtar Live!
+
+---
+
+---
+
+#### Resources:
+
+- https://nextjs.org/docs/app/building-your-application/optimizing/fonts

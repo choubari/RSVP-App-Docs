@@ -1,0 +1,39 @@
+There are two ways to navigate between routes in Next.js:
+
+- Using the `<Link>` Component
+- Using the useRouter Hook
+
+In our app, we will focus heavily on the `<Link>` Component;
+
+## `<Link>` Component
+
+`<Link>` is a built-in component that extends the HTML `<a>` tag to provide prefetching and client-side navigation between routes. It is the primary way to navigate between routes in Next.js.
+
+You can use it by importing it from `next/link`, and passing a href prop to the component:
+
+```jsx
+import Link from "next/link";
+
+export default function Page() {
+  return <Link href="/dashboard">Dashboard</Link>;
+}
+```
+
+## Exercise
+
+- Using `next/link` edit your Navbar to have the links to /home, /about, /events, and /categories.
+- Edit your Footer to have the links to /home, /privacy-policy and /terms.
+
+### Solution
+
+Checkout my implemented [Navbar](https://github.com/choubari/RSVP-Event-App/blob/master/components/navbar.tsx) and [Footer](https://github.com/choubari/RSVP-Event-App/blob/master/components/footer.tsx).
+
+Got a question? Ask Kawtar Live!
+
+---
+
+---
+
+#### Resources
+
+- https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating

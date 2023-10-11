@@ -1,3 +1,98 @@
-# Why Next.js
+# How our API works?
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+To simplify building our RSVP app, we are going to use a pre-made api, the Moroccan Events REST API is served using [json-server](https://github.com/typicode/json-server) which help us create fastly a fake api with zero coding in less than 30 seconds, based on our database served in a json format.
+
+I gathered the Moroccan Events Data from: [Guichet.com](https://guichet.com) - Latest Update: 22 September 2023
+
+We will have two endpoints:
+
+```
+    /categories (8x entries)
+    /events (109x entries)
+```
+
+You can use this api endpoint hosted on vercel (serverless functions), which means if you edit data it will be temporarily. This could be great to use this api on `GET` to your layouts, but won't help us writing and persisting data to it.
+
+```
+https://moroccan-events-api.vercel.app/
+```
+
+or host your own
+
+```
+https://github.com/choubari/moroccan-events-api
+```
+
+## API endpoint
+
+To solve the previous issue, and be able to write on our json database, we are going to use Glitch which will help us persist on the data.
+
+To access and modify resources, you can use any HTTP method:
+
+`GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `OPTIONS`
+
+You can use this endpoint:
+
+```
+https://moroccan-events-api.glitch.me/
+```
+
+> For demo purposes, and since this api is used by all the participants, don't heavily edit or delete all the data.
+
+or remix (duplicate this project), to host your own api and work with it:
+
+```
+https://glitch.com/edit/#!/moroccan-events-api
+```
+
+## API Calls
+
+You can call your api endpoint like this:
+
+Example Routes:
+
+- GET https://moroccan-events-api.glitch.me/events
+- POST https://moroccan-events-api.glitch.me/events
+- PATCH https://moroccan-events-api.glitch.me/events/1
+- DELETE https://moroccan-events-api.glitch.me/events/1
+
+Each "events" resource has the following fields:
+
+```json
+  {
+    "id": "2607",
+    "title": "Laylat Al Mawlid Nabawi",
+    "url": "https://guichet.com/concerts-festivals/laylat-al-mawlid-nabawi-22",
+    "description": "جمعية رحاب الثقافة  بتعاون مع مسرح محمد الخامس\r\n\r\nيقدمان\r\n\r\nليلة المولد\r\n\r\nبمشاركة\r\n\r\nالطائفة العيساوية الفاسية\r\n\r\nبرئاسة الحاح سعيد برادة\r\n\r\nطائفة الوناسة الصوفية للطريقة الحمدوشية براسة المقدم أنوار الدقاقي\r\n\r\nالمجموعة العيساوية برئاسة المقدمة عائشة الدكالي\r\n\r\nكما جرت العادة، ولهلا يقطعها عادة، ليلة المولد النبوي الشريف احتفاء بمولده صلى الله عليه وسلم. ليلة ربانية بمسرح محمد الخامس،\r\n\r\n من جا لحضرتنا يبرا يمشي بقلبو مستامن، نحاس يولي نقرا، رسول الله هو الضامن.\r\n\r\nسهرة فنية بمناسبة عيد المولد النبوي الشريف\r\n\r\nوذلك يوم   الجمعة 22 شتنبر 2023 على الساعة الثامنة  والنصف  مساء\r\n\r\nبمسرح محمد الخامس",
+    "date": "22/09/2023 20:30:00",
+    "cover_url": "https://gcdn.imgix.net/events/laylat-al-mawlid-nabawi-3.jpeg?w=450&h=450&fit=crop&crop=entropy&auto=format,compress&q=80",
+    "cover_alt": "Laylat Al Mawlid Nabawi - Guichet.com",
+    "categories": "Concerts,Festivals",
+    "address_name": "Théâtre Mohammed 5 RABAT",
+    "address_city": "Rabat",
+    "price_type": "Paid",
+    "price": "180",
+    "status": "published",
+    "rsvp": 76
+  },
+```
+
+Example Routes:
+
+- GET https://moroccan-events-api.glitch.me/categories
+- POST https://moroccan-events-api.glitch.me/categories
+- PATCH https://moroccan-events-api.glitch.me/categories/1
+- DELETE https://moroccan-events-api.glitch.me/categories/1
+
+Each "categories" resource has the following fields:
+
+```json
+  {
+    "id": "1",
+    "name": "Concerts",
+    "image": "https://images.unsplash.com/photo-1512053459797-38c3a066cabd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    "description": "Events related to musical concerts."
+  },
+```
+
+Now since you have your API endpoint, let's add it to our environment variables!

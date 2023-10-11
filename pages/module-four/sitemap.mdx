@@ -1,0 +1,89 @@
+## What is sitemap.xml?
+
+A sitemap is a blueprint of your website that help search engines find, crawl and index all of your website's content. Sitemaps also tell search engines which pages on your site are most important.
+
+## How to add a Sitemap
+
+With Next.js, you can add or generate a sitemap.xml file that matches the [Sitemaps XML format](https://www.sitemaps.org/protocol.html) in the root of app directory to help search engine crawlers crawl your site more efficiently.
+
+### Static Sitemap
+
+Add directly your xml file in the app directory with the links you want search engines to crawl.
+
+**Example:**
+
+```xml
+<!-- app/sitemap.xml -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://acme.com</loc>
+    <lastmod>2023-04-06T15:02:24.021Z</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>https://acme.com/about</loc>
+    <lastmod>2023-04-06T15:02:24.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://acme.com/blog</loc>
+    <lastmod>2023-04-06T15:02:24.021Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
+
+```
+
+### Dynamic Sitemap
+
+Add a `sitemap.js` or `sitemap.ts` file that returns Sitemap.
+
+```js
+import { Event } from "@/types";
+import { getEvents } from "@/utils/helpers";
+
+const home = process.env.NEXT_PUBLIC_APP_URL;
+
+export default async function sitemap() {
+  const res = await getEvents();
+  const events = await res.json();
+
+  const dynamicRoutes = events.map((event: Event) => ({
+    url: `${home}/events/${event.id}`,
+    lastModified: new Date().toISOString(),
+  }));
+
+  const staticRoutes = [
+    "",
+    "about",
+    "privacy-policy",
+    "terms",
+    "categories",
+    "events",
+  ].map((route) => ({
+    url: `${home}/${route}`,
+    lastModified: new Date().toISOString(),
+  }));
+
+  return [...dynamicRoutes, ...staticRoutes];
+}
+```
+
+This code will generate the following sitemap.xml :
+
+![Next.js](../../images/sitemap.PNG)
+
+## Exercise
+
+> You can use the same file above to create your `sitemap.js` file!
+
+---
+
+---
+
+#### Resources:
+
+- https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
