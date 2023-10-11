@@ -2,7 +2,7 @@ A layout is UI that is shared between multiple pages. On navigation, layouts pre
 
 You can define a layout by `default` exporting a React component from a `layout.js` file. The component should accept a `children` prop that will be populated with a child layout (if it exists) or a child page during rendering.
 
-![Next.js](../../images/layout.PNG)
+![Next.js](../../images/layout.png)
 
 ## Root Layout
 
@@ -35,13 +35,13 @@ export default function RootLayout({
 
 Layouts defined inside a folder (e.g. `app/dashboard/layout.js`) apply to specific route segments (e.g. `acme.com/dashboard`) and render when those segments are active. By default, layouts in the file hierarchy are nested, which means they wrap child layouts via their `children` prop.
 
-![Next.js](../../images/nested-layouts.PNG)
+![Next.js](../../images/nested-layouts.png)
 
 If you were to combine the two layouts above, the root layout (`app/layout.js`) would wrap the dashboard layout (`app/dashboard/layout.js`), which would wrap route segments inside `app/dashboard/*`.
 
 The two layouts would be nested as such:
 
-![Next.js](../../images/nested-route-layouts.PNG)
+![Next.js](../../images/nested-route-layouts.png)
 
 You can use Route Groups to opt specific route segments in and out of shared layouts.
 
