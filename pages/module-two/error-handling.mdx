@@ -9,7 +9,7 @@ The `error.js` file convention allows you to gracefully handle unexpected runtim
 
 Create error UI by adding an `error.js` file inside a route segment and exporting a React component:
 
-![Next.js app](../../images/errorfile.png)
+![Next.js app](public/images/errorfile.png)
 
 ```jsx
 // app/dashboard/error.tsx
@@ -47,7 +47,7 @@ export default function Error({
 
 ## How `error.js` Works`
 
-![Next.js app](../../images/errorsuspense.png)
+![Next.js app](public/images/errorsuspense.png)
 
 - error.js automatically creates a React Error Boundary that wraps a nested child segment or page.js component.
 - The React component exported from the error.js file is used as the fallback component.

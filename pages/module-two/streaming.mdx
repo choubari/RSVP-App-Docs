@@ -14,13 +14,13 @@ These steps are sequential and blocking, meaning the server can only render the 
 
 SSR with React and Next.js helps improve the perceived loading performance by showing a non-interactive page to the user as soon as possible.
 
-![Next.js app](../../images/ssrloading.png)
+![Next.js app](public/images/ssrloading.png)
 
 However, it can still be slow as all data fetching on server needs to be completed before the page can be shown to the user.
 
 Streaming allows you to break down the page's HTML into smaller chunks and progressively send those chunks from the server to the client.
 
-![Next.js app](../../images/loadingstate.png)
+![Next.js app](public/images/loadingstate.png)
 
 This enables parts of the page to be displayed sooner, without waiting for all the data to load before any UI can be rendered.
 
@@ -30,7 +30,7 @@ In addition to `loading.js`, you can also manually create Suspense Boundaries fo
 
 In the same folder, `loading.js` will be nested inside `layout.js`. It will automatically wrap the `page.js` file and any children below in a `<Suspense>` boundary.
 
-![Next.js app](../../images/loadingsuspense.png)
+![Next.js app](public/images/loadingsuspense.png)
 
 `<Suspense>` works by wrapping a component that performs an asynchronous action (e.g. fetch data), showing fallback UI (e.g. skeleton, spinner) while it's happening, and then swapping in your component once the action completes.
 
